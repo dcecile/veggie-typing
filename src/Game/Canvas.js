@@ -17,7 +17,7 @@ export function Canvas({gameState, setGameState, inputRef}) {
       <CanvasRoot onClick={() => {
         inputRef.current?.focus()
       }}>
-        {gameState.names.map((row, i) => <NameRow key={i} gameState={gameState} setGameState={setGameState} index={i} row={row}/>)}
+        {gameState.names.map((row, i) => <NameRow key={row.id} gameState={gameState} setGameState={setGameState} index={i} row={row}/>)}
       </CanvasRoot>
     );
   }

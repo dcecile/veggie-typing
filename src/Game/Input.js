@@ -16,7 +16,8 @@ function InputHandle({gameState, setGameState}, ref) {
       const newNames = []
       for (const row of gameState.names) {
         const newRow = []
-        for (const name of row) {
+        for (const name of row.row) {
+          const newPartialMatch = name.text.startsWith(newInput) ? newInput.length : 0
           if (!name.matched && name.text === newInput) {
             if (name.type === "vegetable") {
               newScore += name.text.length * 10
@@ -25,14 +26,21 @@ function InputHandle({gameState, setGameState}, ref) {
             }
             newRow.push({
               ...name,
-              matched: true
+              matched: true,
+              partialMatch: newPartialMatch
             })
             newInput = ""
           } else {
-            newRow.push(name)
+            newRow.push({
+              ...name,
+              partialMatch: newPartialMatch
+            })
           }
         }
-        newNames.push(newRow)
+        newNames.push({
+          ...row,
+          row: newRow
+        })
       }
       setGameState({
         ...gameState,

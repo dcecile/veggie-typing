@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 
 export function Name({name}) {
-    return <NameRoot data-type={name.type} data-matched={name.matched ? "matched" : "not-matched"}>{name.text}</NameRoot>
+    return (
+        <NameRoot data-type={name.type} data-matched={name.matched ? "matched" : "not-matched"}>
+            <PartialMatch>{name.text.substring(0, name.partialMatch)}</PartialMatch>
+            {name.text.substring(name.partialMatch)}
+        </NameRoot>
+    )
 }
 
 const NameRoot = styled.span`
@@ -19,4 +24,9 @@ const NameRoot = styled.span`
     &[data-type=pollinator] {
         color: blue;
     }
+`
+
+const PartialMatch = styled.span`
+    background: black;
+    color: white;
 `
